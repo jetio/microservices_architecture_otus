@@ -6,7 +6,7 @@ actor "Пользователь" as USER order 1
 
 box "Система" #LightBlue
     participant "Фронт" as FRONT order 10
-    participant "BFF" as BFF order 20
+    participant "BFF Маркет" as BFF order 20
     participant "Сервиc доставки" as SERVICE_DELIVERY order 30
     participant "Сервиc заказа" as SERVICE_ORDER order 40
     participant "Сервиc корзины" as SERVICE_BASKET order 50
@@ -35,7 +35,7 @@ FRONT --> USER : Отображает результат
 USER -> FRONT : Кладет нужный товар в корзину
 FRONT -[#blue]> BFF ++ : Отправляет запрос\n<b>[sync]
 BFF -[#blue]> SERVICE_BASKET ++: Вызывает API помещения товара в корзину\n<b>[sync]
-SERVICE_BASKET -[#blue]> SERVICE_CATALOGUE ++ : Вызывает API бронирования товара\n<b>[sync]
+SERVICE_BASKET -[#blue]> SERVICE_CATALOGUE ++ : Вызывает API\nбронирования товара\n<b>[sync]
 SERVICE_CATALOGUE --> SERVICE_BASKET --: Отвечает
 SERVICE_BASKET --> BFF -- : Отвечает
 BFF --> FRONT -- : Отвечает
@@ -46,7 +46,7 @@ FRONT --> USER : Отображает результат
 USER -> FRONT : Оформляет заказ
 FRONT -[#blue]> BFF ++ : Отправляет запрос\n<b>[sync]
 BFF -[#blue]> SERVICE_ORDER ++: Вызывает API создания заказа\n<b>[sync]
-SERVICE_ORDER -[#blue]> SERVICE_BASKET ++: Вызывает API корзины для получения позиций\n<b>[sync]
+SERVICE_ORDER -[#blue]> SERVICE_BASKET ++: Вызывает API корзины\nдля получения позиций\n<b>[sync]
 SERVICE_BASKET --> SERVICE_ORDER -- : Отвечает
 SERVICE_ORDER --> BFF -- : Отвечает
 BFF --> FRONT -- : Отвечает
@@ -56,7 +56,7 @@ FRONT --> USER : Отображает результат
 
 USER -> FRONT : Оформляет доставку
 FRONT -[#blue]> BFF ++ : Отправляет запрос\n<b>[sync]
-BFF -[#blue]> SERVICE_DELIVERY ++: Вызывает API запроса вариантов доставки\n<b>[sync]
+BFF -[#blue]> SERVICE_DELIVERY ++: Вызывает API запроса\nвариантов доставки\n<b>[sync]
 SERVICE_DELIVERY --> BFF -- : Отвечает
 BFF --> FRONT -- : Отвечает
 FRONT --> USER : Отображает результат
@@ -87,6 +87,13 @@ SERVICE_ORDER -[#green]> SERVICE_NOTIFICATION: Отправляет уведом
 SERVICE_ORDER --> BFF -- : Отвечает
 BFF --> FRONT -- : Отвечает
 FRONT --> USER : Отображает результат
+
+== Получение на складе и доставка ==
+
+SERVICE_DELIVERY -[#blue]> SERVICE_WAREHOUSE ++: Обновляет статус позиции\n<b>[sync]
+SERVICE_WAREHOUSE --> SERVICE_DELIVERY --: Отвечает
+SERVICE_DELIVERY -[#blue]> SERVICE_ORDER ++: Обновляет статус заказа\n<b>[sync]
+SERVICE_ORDER --> SERVICE_DELIVERY -- : Отвечает
 
 == Синхронизация позиций ==
 

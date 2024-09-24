@@ -7,7 +7,7 @@ actor "Пользователь" as USER order 1
 box "Система" #LightBlue
     participant "Фронт" as FRONT order 10
     participant "Сервис IdP" as SERVICE_IDP order 20
-    participant "BFF" as BFF order 30
+    participant "BFF ЛК" as BFF order 30
     participant "Сервиc пользователей" as SERVICE_USERS order 40
     participant "Сервис уведомлений" as SERVICE_NOTIFICATION order 50
 end box
