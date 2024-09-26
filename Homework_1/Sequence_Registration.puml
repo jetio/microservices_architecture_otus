@@ -1,0 +1,59 @@
+@startuml
+title Процесс регистрации и аутентификации
+footer OTUS. ДЗ №1
+
+actor "Пользователь" as USER order 1
+
+box "Система" #LightBlue
+    participant "Фронт" as FRONT order 10
+    participant "Сервис IdP" as SERVICE_IDP order 20
+    participant "BFF ЛК" as BFF order 30
+    participant "Сервиc пользователей" as SERVICE_USERS order 40
+    participant "Сервис уведомлений" as SERVICE_NOTIFICATION order 50
+end box
+
+USER -> FRONT : Заполняет форму регистрации
+
+FRONT -[#blue]> SERVICE_IDP ++: Запрашивает отправку OTP\n<b>[sync]
+SERVICE_IDP --> FRONT --: Отвечает
+
+USER -> FRONT : Подтверждает номер\nтелефона (OTP)
+FRONT -[#blue]> SERVICE_IDP ++ : Вызывает API проверки 2Fa\n<b>[sync]
+SERVICE_IDP -> SERVICE_IDP : Проверяет 2Fa
+SERVICE_IDP --> FRONT -- : Отвечает
+
+FRONT -[#blue]> BFF ++ : Отправляет запрос на регистрацию\n<b>[sync]
+BFF -> BFF : Кеширует запрос
+note right : Для обеспечения высокой доступности
+
+BFF -[#blue]> SERVICE_USERS ++: Вызывает API регистрации\n<b>[sync]
+SERVICE_USERS -> SERVICE_USERS : Проверяет наличие пользователя\nс аналогичным email или телефоном
+SERVICE_USERS -> SERVICE_USERS : Регистрирует пользователя
+SERVICE_USERS -[#green]> SERVICE_NOTIFICATION : Отправляет команду на\nотправку письма для подтверждения email\n<b>[async]
+SERVICE_USERS --> BFF -- : Отвечает
+BFF --> FRONT -- : Отвечает
+FRONT --> USER : Сообщение о\nрезультате регистрации
+
+USER -> FRONT : Подтверждает Email\n(https://URL/accept/41/0f0e3adcc69be1ea29309a78ce3ac1/)
+FRONT -[#blue]> BFF ++ : Отправляет запрос на подтверждение email\n<b>[sync]
+BFF -[#blue]> SERVICE_USERS ++: Вызывает API подтверждение email\n<b>[sync]
+SERVICE_USERS --> BFF -- : Отвечает
+BFF --> FRONT -- : Отвечает
+FRONT --> USER : Сообщение о результате\nподтверждения email
+
+USER -> FRONT : Заполняет логин и пароль + 2Fa
+FRONT -[#blue]> BFF : Запрашивает аутентификацию
+BFF -[#blue]> SERVICE_IDP : Вызов API аутентификации
+SERVICE_IDP -> SERVICE_IDP : Аутентификация + проверка 2Fa
+SERVICE_IDP --> BFF : Отвечает (access token)
+BFF -> BFF : Сохраняет access token
+BFF --> FRONT -- : Отвечает
+FRONT --> USER : Главная страница
+
+legend right
+| Цвет | Характер взаимодействия |
+|<#Blue>| Синхронный вызов |
+|<#Green>| Асинхронное взаимодействие (сообщение/событие/команда)|
+end legend
+
+@enduml
