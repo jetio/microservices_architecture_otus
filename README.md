@@ -17,8 +17,8 @@
 * minikube start --vm-driver=virtualbox -- так не заработало
 * minikube delete -- удаление кластера 
 * brew install hyperkit -- установка гипервизора для macOs
-* brew --prefix hyperkit -- покажет, куда установлен hyperkit (/usr/local/opt/hyperkit). Нужно добавить в PATH
-* minikube start --driver=hyperkit -- так заработало
+* brew --prefix hyperkit -- покажет, куда установлен hyperkit (/usr/local/opt/hyperkit). Нужно добавить в PATH в файле .zprofile (аналог .bashrc)
+* minikube start или minikube start --driver=hyperkit -- так заработало
 * minikube status -- выводит статус кластера: 
 type: Control Plane
 host: Running
