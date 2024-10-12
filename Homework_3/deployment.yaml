@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hw3app-deployment
+  labels:
+    app: hw3app-dp
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: hw3app
+  template:
+    metadata:
+      labels:
+        app: hw3app
+    spec:
+      containers:
+        - name: hw3app
+          image: msc-arch-hw2:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
