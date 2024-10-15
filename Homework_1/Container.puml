@@ -1,0 +1,134 @@
+@startuml
+!include <C4/C4_Container>
+!include <tupadr3/devicons2/chrome>
+!include <tupadr3/devicons2/java>
+!include <tupadr3/devicons2/javascript>
+
+'LAYOUT_WITH_LEGEND()
+'LAYOUT_LANDSCAPE()
+'LAYOUT_LEFT_RIGHT()
+'LAYOUT_TOP_DOWN()
+
+!theme bluegray
+skinparam backgroundColor white
+
+HIDE_STEREOTYPE()
+
+' If spaces are requested in the legend, legend text with space has to be defined (incl. all other additional details)
+AddContainerTag("microService", $shape=EightSidedShape(), $legendText="Реализуется в MVP")
+AddContainerTag("microServiceToBe", $shape=EightSidedShape(), $legendText="Не реализуется в MVP", $borderColor="red")
+AddElementTag("serviceToBe", $legendText="Не реализуется в MVP", $borderColor="red")
+
+'skinparam linetype ortho
+'skinparam linetype polyline
+
+'skinparam defaultFontSize 25
+'skinparam arrowFontSize 20
+
+skinparam nodesep 50
+skinparam ranksep 10
+
+Person(person, "Пользователь")
+Container(WEB_UI_INFO, "Веб-фронт инфопортала", "SPA:JavaScript", $tags="microService", $sprite="javascript")
+Container(WEB_UI_LK, "Веб-фронт ЛК", "SPA:JavaScript", $tags="microService", $sprite="javascript")
+Container(WEB_UI_MARKET, "Веб-фронт Маркет", "SPA:JavaScript", $tags="microService", $sprite="javascript")
+Container(WEB_UI_SOCIAL, "Веб-фронт Соцсеть", "SPA:JavaScript", $tags="microServiceToBe", $sprite="javascript")
+
+Container(BFF_INFO, "BFF инфопортала", "Container:SpringBoot", $tags="microService", $sprite="java")
+Container(BFF_LK, "BFF ЛК", "Container:SpringBoot", $tags="microService", $sprite="java")
+Container(BFF_MARKET, "BFF Маркет", "Container:SpringBoot", $tags="microService", $sprite="java")
+Container(BFF_SOCIAL, "BFF Соцсеть", "Container:SpringBoot", $tags="microServiceToBe", $sprite="java")
+
+Container(CALENDAR, "Календарь", "Container:SpringBoot", $tags="microServiceToBe", $sprite="java")
+Container(NOTIFICATION, "Уведомления", "Container:SpringBoot", $tags="microService", $sprite="java")
+Container(INFOPORTAL, "Инфопортал", "Container:SpringBoot", $tags="microService", $sprite="java")
+
+Boundary(ACCESS, "Подсистема контроля доступа"){
+    Container(AUTH, "Сервис MSA AUTH", "Container:SpringBoot", $tags="microServiceToBe", $sprite="java")
+    Container(IDP, "Сервис IdP", "Container:SpringBoot", $tags="microService", $sprite="java")
+}
+
+Boundary(LK, "Подсистема личного кабинета"){
+    Container(API_Gateway_LK, "API-Gateway подсистемы ЛК", "Container:Kong", $tags="serviceToBe")
+    Container(CUSTOMER, "Пользователи", "Container:SpringBoot", $tags="microService", $sprite="java")
+    Container(INVENTORY, "Инвентарь", "Container:SpringBoot", $tags="microService", $sprite="java")
+    Container(ADVICE_FISHING, "Рекомендации по ловле", "Container:SpringBoot", $tags="microService", $sprite="java")
+    Container(ADVICE_INVENTORY, "Рекомендации по инвентарю", "Container:SpringBoot", $tags="microService", $sprite="java")
+}
+
+Boundary(MARKET, "Подсистема Маркет"){
+    Container(API_Gateway_Market, "API-Gateway подсистемы Маркет", "Container:Kong", $tags="serviceToBe")
+    Container(ORDER, "Заказ", "Container:SpringBoot", $tags="microService", $sprite="java")
+    Container(CATALOGUE, "Каталог", "Container:SpringBoot", $tags="microService", $sprite="java")
+    Container(WAREHOUSE, "Склад", "Container:SpringBoot", $tags="microService", $sprite="java")
+    Container(BASKET, "Корзина", "Container:SpringBoot", $tags="microService", $sprite="java")
+    Container(DELIVERY, "Доставка", "Container:SpringBoot", $tags="microService", $sprite="java")
+    Container(INVOICE, "Платеж", "Container:SpringBoot", $tags="microService", $sprite="java")
+
+    BiRel(BASKET, ORDER, "Вызывает", "HTTP/REST")
+    Rel(ORDER, INVOICE, "Отправляет команду", "JMS/AMQP")
+    Rel(ORDER, DELIVERY, "Вызывает", "HTTP/REST")
+    Rel(ORDER, WAREHOUSE, "Вызывает API бронирования и реализации товаров", "HTTP/REST")
+    Rel(WAREHOUSE, CATALOGUE, "Отправляет позиции на складе", "JMS/AMQP")
+}
+
+Boundary(SOCIAL, "Подсистема Соцсети"){
+    Container(API_Gateway_Social, "API-Gateway подсистемы Social", "Container:Kong", $tags="serviceToBe")
+    Container(GROUP_ACTIVITY, "Групповые мероприятия", "Container:SpringBoot", $tags="microServiceToBe", $sprite="java")
+}
+
+System(ERP, "ERP-система")
+System(BUH, "Бухгалтерская система")
+
+Rel(person, WEB_UI_INFO, "Использует", style)
+Rel(person, WEB_UI_LK, "Использует")
+Rel(person, WEB_UI_MARKET, "Использует")
+Rel(person, WEB_UI_SOCIAL, "Использует")
+
+Rel(WEB_UI_INFO, BFF_INFO, "Вызывает", "HTTP/REST")
+Rel(WEB_UI_LK, BFF_LK, "Вызывает", "HTTP/REST")
+Rel(WEB_UI_MARKET, BFF_MARKET, "Вызывает", "HTTP/REST")
+Rel(WEB_UI_SOCIAL, BFF_SOCIAL, "Вызывает", "HTTP/REST")
+
+Rel(BFF_LK, IDP, "Вызывает", "HTTP/REST")
+Rel(BFF_MARKET, IDP, "Вызывает", "HTTP/REST")
+Rel(BFF_SOCIAL, IDP, "Вызывает", "HTTP/REST")
+
+Rel(BFF_LK, API_Gateway_LK, "Вызывает", "HTTP/REST")
+Rel(BFF_MARKET, API_Gateway_Market, "Вызывает", "HTTP/REST")
+Rel(BFF_SOCIAL, API_Gateway_Social, "Вызывает", "HTTP/REST")
+Rel(BFF_INFO, INFOPORTAL, "Вызывает", "HTTP/REST")
+
+Rel(API_Gateway_LK, INVENTORY, "Вызывает", "HTTP/REST")
+Rel(API_Gateway_LK, CUSTOMER, "Вызывает", "HTTP/REST")
+Rel(API_Gateway_LK, ADVICE_FISHING, "Вызывает", "HTTP/REST")
+Rel(API_Gateway_LK, ADVICE_INVENTORY, "Вызывает", "HTTP/REST")
+'Rel(API_Gateway_LK, AUTH, "Вызывает", "HTTP/REST")
+
+Rel(API_Gateway_Market, CATALOGUE, "Вызывает", "HTTP/REST")
+Rel(API_Gateway_Market, BASKET, "Вызывает", "HTTP/REST")
+Rel(API_Gateway_Market, ORDER, "Вызывает", "HTTP/REST")
+'Rel(API_Gateway_Market, AUTH, "Вызывает", "HTTP/REST")
+
+Rel(API_Gateway_Social, GROUP_ACTIVITY, "Вызывает", "HTTP/REST")
+'Rel(API_Gateway_Social, AUTH, "Вызывает", "HTTP/REST")
+
+Rel(ORDER, NOTIFICATION, "Отправляет команду", "JMS/AMQP")
+Rel(CUSTOMER, CALENDAR, "Вызывает", "HTTP/REST")
+
+Rel(ERP, API_Gateway_Market, "Запрос складских остатков", "HTTP/REST")
+Rel(BUH, API_Gateway_Market, "Импорт платежей", "JMS/AMQP")
+
+Rel(NOTIFICATION, API_Gateway_LK, "Запрашивает профиль пользователя", "HTTP/REST")
+Rel(DELIVERY, NOTIFICATION, "Отправляет команду", "JMS/AMQP")
+Rel(GROUP_ACTIVITY, CALENDAR, "Отправляет событие", "JMS/AMQP")
+Rel(ADVICE_INVENTORY, API_Gateway_Market, "Запрашивает продукты", "HTTP/REST")
+
+Rel(ADVICE_FISHING, CUSTOMER, "Запрашивает профиль пользователя", "HTTP/REST")
+Rel(ADVICE_INVENTORY, CUSTOMER, "Запрашивает профиль пользователя", "HTTP/REST")
+Rel(ADVICE_INVENTORY, INVENTORY, "Запрашивает инвентарь", "HTTP/REST")
+Rel(ADVICE_INVENTORY, INVENTORY, "Отправляет рекомендацию", "JMS/AMQP")
+Rel(ADVICE_FISHING, CUSTOMER, "Отправляет рекомендацию", "JMS/AMQP")
+
+SHOW_LEGEND()
+@enduml

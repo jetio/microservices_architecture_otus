@@ -1,0 +1,45 @@
+@startuml
+title Процесс редактирования инвентаря и подписки на рекомендации
+footer OTUS. ДЗ №1
+
+actor "Пользователь" as USER order 1
+
+box "Система" #LightBlue
+    participant "Фронт" as FRONT order 10
+    participant "BFF ЛК" as BFF order 20
+    participant "Сервис рекомендаций" as SERVICE_ADVICE order 30
+    participant "Сервис инвентаря" as SERVICE_INVENTORY order 40
+end box
+
+note over FRONT, BFF
+<b>Предусловие:</b> Пользователь аутентифицирован
+end note
+
+USER -> FRONT : Заполняет инвентарь
+FRONT -[#blue]> BFF ++ : Отправляет данные\n<b>[sync]
+BFF -[#blue]> SERVICE_INVENTORY ++: Вызывает API установки инвентаря\n<b>[sync]
+SERVICE_INVENTORY --> BFF -- : Отвечает
+BFF --> FRONT -- : Отвечает
+FRONT --> USER : Отображает результат
+
+USER -> FRONT : Активирует подписку\nна рекомендации по инвентарю
+FRONT -[#blue]> BFF ++ : Отправляет запрос\n<b>[sync]
+BFF -[#blue]> SERVICE_ADVICE ++: Вызывает API на подключение\nподписки на рекомендации по инвентарю\n<b>[sync]
+SERVICE_ADVICE --> BFF -- : Отвечает
+BFF --> FRONT -- : Отвечает
+FRONT --> USER : Отображает результат
+
+SERVICE_ADVICE -[#blue]> SERVICE_INVENTORY ++: Запрашивает теущий инвентарь\n<b>[sync]
+SERVICE_INVENTORY --> SERVICE_ADVICE -- : Отвечает
+SERVICE_ADVICE -> SERVICE_ADVICE : Генерирует рекомендацию
+SERVICE_ADVICE -[#green]> BFF : Отправляет рекомендацию\n<b>[async]
+BFF -[#green]> FRONT : Получает рекомендацию
+FRONT --> USER : Отображает рекомендацию
+
+legend right
+| Цвет | Характер взаимодействия |
+|<#Blue>| Синхронный вызов |
+|<#Green>| Асинхронное взаимодействие (сообщение/событие/команда)|
+end legend
+
+@enduml
