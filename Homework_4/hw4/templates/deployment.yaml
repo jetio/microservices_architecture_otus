@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-deployment
+  labels:
+    app: {{ .Release.Name }}-dp
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: hw4app
+  template:
+    metadata:
+      labels:
+        app: hw4app
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          #image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          image:
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: "DATABASE_PASS"
+              valueFrom:
+                secretKeyRef:
+                  key: "db_pass"
+                  name: {{ .Release.Name }}-auth
+
+            - name: "DATABASE_URL"
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Release.Name }}-configmap
+                  key: database_url
+            - name: "DATABASE_NAME"
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Release.Name }}-configmap
+                  key: database_name
+            - name: "DATABASE_USER"
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Release.Name }}-configmap
+                  key: database_user
+
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP

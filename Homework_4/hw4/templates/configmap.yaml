@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-configmap
+data:
+  database_url: {{ .Values.db.host }}
+  database_name: {{ .Values.db.name }}
+  database_user: {{ .Values.db.user }}
