@@ -1,4 +1,4 @@
-package com.tutorialworks.demos.springbootwithmetrics;
+package ru.otus.hw5.springbootwithmetrics;
 
 public class User {
     private Long id;

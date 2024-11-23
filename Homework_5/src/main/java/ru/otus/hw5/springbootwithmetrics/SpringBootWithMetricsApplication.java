@@ -1,4 +1,4 @@
-package com.tutorialworks.demos.springbootwithmetrics;
+package ru.otus.hw5.springbootwithmetrics;
 
 import io.micrometer.core.aop.TimedAspect;
 import io.micrometer.core.instrument.MeterRegistry;
