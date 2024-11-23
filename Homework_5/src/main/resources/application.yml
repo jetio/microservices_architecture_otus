@@ -1,0 +1,57 @@
+spring:
+  profiles:
+    active: main
+  application:
+    name: ${SERVICE_NAME:"hw5"}
+#  h2:
+#    console:
+#      enabled: true
+#      path: /h2-ui
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    #url: ${DB_CONNECTION_STRING:jdbc:mysql://localhost:3306/hw5db?allowPublicKeyRetrieval=true&useSSL=false}
+    url: ${DB_CONNECTION_STRING:jdbc:mysql://host.docker.internal:3306/hw5db?allowPublicKeyRetrieval=true&useSSL=false}
+    username: ${DB_LOGIN:root}
+    password: ${DB_PASSWORD:123456}
+
+#    driverClassName: org.h2.Driver
+    # smirnov_aa: if you happen to have Hikari on the classpath, this basic setup does not work, because Hikari has no url property (but does have a jdbcUrl property). In that case, you must rewrite your configuration as follows:
+#    url: ${DB_CONNECTION_STRING:jdbc:h2:file:./testdb}
+#    username: ${DB_LOGIN:sa}
+#    password: ${DB_PASSWORD:}
+#  jpa:
+#    database-platform: org.hibernate.dialect.H2Dialect
+#    hibernate:
+#      ddl-auto: none
+
+management:
+  security:
+    enabled: false
+  health:
+    livenessstate:
+      enabled: true
+    readynessstate:
+      enabled: true
+  endpoint:
+    health:
+      show-details: always
+      probes:
+        enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "health, metrics, prometheus"
+
+springdoc:
+  show-actuator: true
+
+pingMessage: Hello, this is hw5 microservice
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+pingMessage: Hello, this is hw5 microservice (DEV)
