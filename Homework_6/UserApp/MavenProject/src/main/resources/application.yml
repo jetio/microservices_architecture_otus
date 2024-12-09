@@ -1,0 +1,42 @@
+spring:
+  profiles:
+    active: main
+  application:
+    name: ${SERVICE_NAME:"HW6 User application"}
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${DB_CONNECTION_STRING:jdbc:mysql://localhost:3306/hw5db?allowPublicKeyRetrieval=true&useSSL=false}
+    #url: ${DB_CONNECTION_STRING:jdbc:mysql://host.docker.internal:3306/hw5db?allowPublicKeyRetrieval=true&useSSL=false}
+    username: ${DB_LOGIN:root}
+    password: ${DB_PASSWORD:123456}
+management:
+  security:
+    enabled: false
+  health:
+    livenessstate:
+      enabled: true
+    readynessstate:
+      enabled: true
+  endpoint:
+    health:
+      show-details: always
+      probes:
+        enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "health, metrics, prometheus"
+
+springdoc:
+  show-actuator: true
+
+pingMessage: Hello, this is hw6 microservice
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+pingMessage: Hello, this is hw6 microservice (DEV)
