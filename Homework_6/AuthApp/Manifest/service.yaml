@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: hw6auth-service
+  labels:
+    app: hw6auth-svc
+spec:
+  selector:
+    app: hw6auth
+  type: ClusterIP
+  ports:
+    - name: http
+      protocol: TCP
+      # smirnov_aa: this port is gateway port for outer clients
+      port: 80
+      # smirnov_aa: this port is inner container port, that application uses
+      targetPort: 8080
