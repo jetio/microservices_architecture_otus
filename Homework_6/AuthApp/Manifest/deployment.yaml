@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hw6auth-deployment
+  labels:
+    app: hw6auth-dp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hw6auth
+  template:
+    metadata:
+      labels:
+        app: hw6auth
+    spec:
+      containers:
+        - name: hw6auth
+          image: hw6auth:latest
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: "DB_LOGIN"
+              value: "root"
+            - name: "DB_PASSWORD"
+              value: "123456"
+            - name: "DB_CONNECTION_STRING"
+              value: "jdbc:mysql://127.0.0.1:3306/hw5db?allowPublicKeyRetrieval=true&useSSL=false"
+          ports:
+            - containerPort: 8080
