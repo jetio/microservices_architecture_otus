@@ -1,0 +1,39 @@
+@startuml
+title Процесс формирования заказа
+
+actor "Пользователь" as USER order 10
+participant "Сервис заказов" as OrderService order 20
+participant "Сервис расчетов" as BillingService order 30
+participant "Сервис уведомлений" as NotificationService order 40
+
+note right of USER #aqua
+    <b>Сценарий</b>:
+    Шаг 1. Пользователь регистрирует и пополняет счет.
+    Шаг 2. Пользователь делает заказ. 
+    Шаг 2.1. Сервис заказов списывает средства со счета.
+    Шаг 2.2. При удачном списании, формируется заказ и отправляется уведомление.
+    Шаг 2.3. При неудачном списании, отправляется соответствующее уведомление.
+end note
+
+USER -> BillingService ++: Регистрирует счет\n<b>[/api/billing/register]
+BillingService--> USER --: Ответ
+
+USER -> BillingService ++: Пополняет счет\n<b>[/api/billing/refill]
+BillingService--> USER --: Ответ
+
+USER -> OrderService ++: Формирует заказ\n<b>[/api/orders]
+OrderService -> BillingService ++: Запрашивает списание средств\n<b>[/api/billing/withdraw]
+BillingService --> OrderService --: Ответ
+
+alt средства списаны успешно
+  OrderService -> OrderService : Формирует и сохраняет заказ 
+  OrderService -> NotificationService ++: Отправляет команду на отправку email-сообщения об успехе (сохраняет в БД)
+  NotificationService --> OrderService --:  Ответ
+else средств недостаточно
+  OrderService -> NotificationService ++: Отправляет команду на отправку email-сообщения о неудаче (сохраняет в БД)
+  NotificationService --> OrderService --:  Ответ
+end alt
+
+OrderService --> USER --: Ответ
+
+@enduml
