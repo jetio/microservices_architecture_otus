@@ -1,0 +1,9 @@
+apiVersion: v2
+name: hw7notification
+description: A Helm chart for Homework 7. Notification
+type: application
+version: 0.1.0
+appVersion: "1.16.0"
+maintainers:
+  - email: london08@list.ru
+    name: smirnov_aa

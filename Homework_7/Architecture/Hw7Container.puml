@@ -1,0 +1,28 @@
+@startuml
+!include <C4/C4_Container>
+!include <tupadr3/devicons2/java>
+
+!theme bluegray
+
+skinparam backgroundColor white
+skinparam linetype ortho
+skinparam nodesep 100
+skinparam ranksep 100
+
+'HIDE_STEREOTYPE()
+
+title Диаграмма контейнеров
+footer OTUS
+
+Person(EP, "Пользователь")
+
+Container(ORDER_SERVICE, "Сервис заказов", "Java/Spring", $sprite="java", $tags="newContainer")
+Container(BILLING_SERVICE, "Сервис биллинга", "Java/Spring", $sprite="java", $tags="newContainer")
+Container(NOTIFICATION_SERVICE, "Сервис уведомлений", "Java/Spring", $sprite="java", $tags="newContainer")
+
+Rel(EP, ORDER_SERVICE, "Обращается", "HTTP/REST")
+Rel(ORDER_SERVICE, NOTIFICATION_SERVICE, "Обращается", "HTTP/REST")
+Rel(ORDER_SERVICE, BILLING_SERVICE, "Обращается", "HTTP/REST")
+
+SHOW_LEGEND()
+@enduml

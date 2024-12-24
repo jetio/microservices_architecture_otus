@@ -1,0 +1,304 @@
+{
+	"info": {
+		"_postman_id": "6287d31a-8352-4316-be20-8ef53bbe2c0e",
+		"name": "OTUS MSA ARCH HW7",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2021917"
+	},
+	"item": [
+		{
+			"name": "get orders by username",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/hw7/api/order?username=user2",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"hw7",
+						"api",
+						"order"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "user2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "register Account",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "*/*"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/hw7/api/billing/register?username=user2",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"hw7",
+						"api",
+						"billing",
+						"register"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "user2",
+							"description": "(Required) "
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "OK",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/billing/register?username=<string>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"billing",
+								"register"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "<string>",
+									"description": "(Required) "
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "*/*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"id\": \"<long>\",\n  \"username\": \"<string>\",\n  \"balance\": \"<double>\"\n}"
+				}
+			]
+		},
+		{
+			"name": "refill Account",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "*/*"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/hw7/api/billing/refill?username=user2&amount=1000",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"hw7",
+						"api",
+						"billing",
+						"refill"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "user2",
+							"description": "(Required) "
+						},
+						{
+							"key": "amount",
+							"value": "1000",
+							"description": "(Required) "
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "OK",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/billing/refill?username=<string>&amount=<double>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"billing",
+								"refill"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "<string>",
+									"description": "(Required) "
+								},
+								{
+									"key": "amount",
+									"value": "<double>",
+									"description": "(Required) "
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "*/*"
+						}
+					],
+					"cookie": [],
+					"body": "<string>"
+				}
+			]
+		},
+		{
+			"name": "create Order",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "*/*"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/hw7/api/order?username=user2&amount=20",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"hw7",
+						"api",
+						"order"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "user2",
+							"description": "(Required) "
+						},
+						{
+							"key": "amount",
+							"value": "20",
+							"description": "(Required) "
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "OK",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/orders?username=<string>&amount=<number>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"orders"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "<string>",
+									"description": "(Required) "
+								},
+								{
+									"key": "amount",
+									"value": "<number>",
+									"description": "(Required) "
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "*/*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"id\": \"<long>\",\n  \"username\": \"<string>\",\n  \"amount\": \"<number>\"\n}"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://arch.homework",
+			"type": "string"
+		}
+	]
+}

@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-configmap
+data:
+  withdraw_url: {{ .Values.app.withdraw.url }}
+  notification_url: {{ .Values.app.notification.url }}
