@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: "HW7 Order application"
   datasource:
     url: jdbc:h2:mem:orderdb
     driver-class-name: org.h2.Driver
@@ -19,10 +21,10 @@ spring:
       path: /h2-console
 
 server:
-  port: 8083
+  port: 8080
 
 api:
   billing:
-    url: http://localhost:8081/api/billing/withdraw
+    url: ${WITHDRAW_URL:"http://billing/api/withdraw"}
   notification:
-    url: http://localhost:8082/api/notifications
+    url: ${NOTIFICATION_URL:"http://notification/api/send"}

@@ -5,7 +5,7 @@ import ru.otus.hw7.billing.model.Account;
 import ru.otus.hw7.billing.service.BillingService;
 
 @RestController
-@RequestMapping("/api/billing")
+@RequestMapping("/hw7/api/billing")
 public class BillingController {
     private final BillingService billingService;
 

@@ -13,7 +13,7 @@
 
     <groupId>ru.otus.hw7.notification</groupId>
     <artifactId>NotificationService</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>3.0-SNAPSHOT</version>
 
     <name>NotificationService application</name>
     <description>Homework 7</description>

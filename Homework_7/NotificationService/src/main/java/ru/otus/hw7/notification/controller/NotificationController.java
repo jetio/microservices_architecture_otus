@@ -11,7 +11,7 @@ import ru.otus.hw7.notification.service.NotificationService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/notifications")
+@RequestMapping("/hw7/api/notification")
 public class NotificationController {
     private final NotificationService notificationService;
 

@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: "HW7 Notification application"
   datasource:
     url: jdbc:h2:mem:notificationdb
     username: sa
@@ -18,4 +20,4 @@ spring:
         format_sql: true
 
 server:
-  port: 8082
+  port: 8080

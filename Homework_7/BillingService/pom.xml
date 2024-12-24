@@ -13,7 +13,7 @@
 
     <groupId>ru.otus.hw7.billing</groupId>
     <artifactId>BillingService</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>3.0-SNAPSHOT</version>
 
     <name>BillingService application</name>
     <description>Homework 7</description>

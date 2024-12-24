@@ -13,7 +13,7 @@
 
     <groupId>ru.otus.hw7.order</groupId>
     <artifactId>OrderService</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>3.0-SNAPSHOT</version>
 
     <name>OrderService application</name>
     <description>Homework 7</description>
