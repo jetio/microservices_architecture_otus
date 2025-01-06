@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: "HW8 Payment application stub"
+
+server:
+  port: 8083
+
+isActive: true

@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: "HW8 Saga application"
+
+server:
+  port: 8080
