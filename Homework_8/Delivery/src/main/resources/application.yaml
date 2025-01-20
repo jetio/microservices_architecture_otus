@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: "HW8 Delivery application stub"
+
+server:
+  port: 8081
+
+isActive: true
