@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import ru.otus.project.users.domain.User;
 import ru.otus.project.users.service.UserService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/users")
 public class UserController {
@@ -21,5 +23,10 @@ public class UserController {
         User savedUser = userService.save(user);
         rabbitTemplate.convertAndSend("/queue/trade/inbound/user", savedUser);
         return savedUser;
+    }
+
+    @GetMapping
+    public List<User> getUsers(){
+        return userService.getUsers();
     }
 }

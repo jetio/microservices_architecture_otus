@@ -16,3 +16,9 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: update
+
+mq:
+  sell:
+    queue: /queue/trade/inbound/order/sell
+  buy:
+    queue: /queue/trade/inbound/order/buy

@@ -1,4 +1,4 @@
-package ru.otus.project.orders.domain;
+package ru.otus.project.trade.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -6,10 +6,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 
-@Entity(name = "ex_order")
-public class Order {
+@Entity
+public class Deal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -18,18 +17,9 @@ public class Order {
     private int amount;
     private BigDecimal price;
     private String dateTime;
-    private String traderCode;
 
     public Long getId() {
         return id;
-    }
-
-    public String getTraderCode() {
-        return traderCode;
-    }
-
-    public void setTraderCode(String traderCode) {
-        this.traderCode = traderCode;
     }
 
     public void setId(Long id) {

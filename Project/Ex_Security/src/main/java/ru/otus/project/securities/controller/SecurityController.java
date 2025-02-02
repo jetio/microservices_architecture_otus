@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import ru.otus.project.securities.domain.Security;
 import ru.otus.project.securities.service.SecurityService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/securities")
 public class SecurityController {
@@ -21,6 +23,11 @@ public class SecurityController {
         Security savedSecurity = securityService.save(security);
         rabbitTemplate.convertAndSend("/queue/trade/inbound/security", savedSecurity);
         return savedSecurity;
+    }
+
+    @GetMapping
+    public List<Security> getSecurities(){
+        return securityService.getSecurities();
     }
 }
 

@@ -11,10 +11,10 @@ import java.util.StringJoiner;
 @Component
 public class MqAdapter {
 
-    @Value("mq.buy.queue")
+    @Value("${mq.buy.queue}")
     private String buyQueueName;
 
-    @Value("mq.sell.queue")
+    @Value("${mq.sell.queue}")
     private String sellQueueName;
 
     @Autowired
@@ -25,7 +25,8 @@ public class MqAdapter {
         stringJoiner.add(order.getId().toString());
         stringJoiner.add(order.getTicker());
         stringJoiner.add(String.valueOf(order.getAmount()));
-        stringJoiner.add(order.getPrice().toString());
+//        stringJoiner.add(order.getPrice().toString());
+        stringJoiner.add(order.getTraderCode());
         return stringJoiner.toString();
     }
 

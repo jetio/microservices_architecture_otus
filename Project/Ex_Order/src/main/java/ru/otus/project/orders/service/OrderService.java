@@ -6,6 +6,7 @@ import ru.otus.project.orders.repository.OrderRepository;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Service
 public class OrderService {
@@ -31,5 +32,9 @@ public class OrderService {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
         return dtf.format(now);
+    }
+
+    public List<Order> getAllOrders() {
+        return orderRepository.findAll();
     }
 }
