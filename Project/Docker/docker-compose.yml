@@ -30,29 +30,6 @@ services:
       - ./config/dynamic_conf.yml:/etc/traefik/dynamic_conf.yml
     command: --api.insecure=true --providers.file.filename=/etc/traefik/dynamic_conf.yml
 
-#  traefik:
-#    image: "traefik:v3.3"
-#    container_name: "traefik"
-#    command:
-#      #- "--log.level=DEBUG"
-#      - "--api.insecure=true"
-#      - "--providers.docker=true"
-#      - "--providers.docker.exposedbydefault=false"
-#      - "--entryPoints.web.address=:80"
-#    ports:
-#      - "80:80"
-#      - "8080:8080"
-#    volumes:
-#      - "/var/run/docker.sock:/var/run/docker.sock:ro"
-
-#  whoami:
-#    image: "traefik/whoami"
-#    container_name: "simple-service"
-#    labels:
-#      - "traefik.enable=true"
-#      - "traefik.http.routers.whoami.rule=Host(`whoami.localhost`)"
-#      - "traefik.http.routers.whoami.entrypoints=web"
-
   rabbitmq:
     image: rabbitmq:3.10.7-management
     ports:

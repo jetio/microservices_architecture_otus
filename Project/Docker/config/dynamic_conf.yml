@@ -29,7 +29,6 @@ http:
         servers:
           - url: "http://host.docker.internal:8084"
 
-
   middlewares:
     auth:
       forwardAuth:
