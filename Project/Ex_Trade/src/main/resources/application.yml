@@ -3,7 +3,7 @@ server:
 
 spring:
   rabbitmq:
-    host: localhost
+    host: host.docker.internal
     port: 5672
     username: guest
     password: guest
@@ -22,3 +22,7 @@ mq:
     queue: /queue/trade/inbound/order/sell
   buy:
     queue: /queue/trade/inbound/order/buy
+  security:
+    queue: /queue/trade/inbound/security
+  user:
+    queue: /queue/trade/inbound/user

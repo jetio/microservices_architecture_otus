@@ -1,29 +1,57 @@
 version: '3.7'
 
 services:
+  prj-auth:
+    image: prj-auth:latest
+    ports:
+      - 8085:8085
+
+  prj-order:
+    depends_on:
+      - rabbitmq
+    image: prj-order:latest
+    ports:
+      - 8081:8081
+
+  prj-trade:
+    depends_on:
+      - rabbitmq
+    image: prj-trade:latest
+    ports:
+      - 8084:8084
 
   traefik:
-    image: "traefik:v3.3"
-    container_name: "traefik"
-    command:
-      #- "--log.level=DEBUG"
-      - "--api.insecure=true"
-      - "--providers.docker=true"
-      - "--providers.docker.exposedbydefault=false"
-      - "--entryPoints.web.address=:80"
+    image: traefik:v2.5
     ports:
-      - "80:80"
       - "8080:8080"
     volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./config/traefik.yml:/etc/traefik/traefik.yml
+      - ./config/dynamic_conf.yml:/etc/traefik/dynamic_conf.yml
+    command: --api.insecure=true --providers.file.filename=/etc/traefik/dynamic_conf.yml
 
-  whoami:
-    image: "traefik/whoami"
-    container_name: "simple-service"
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.whoami.rule=Host(`whoami.localhost`)"
-      - "traefik.http.routers.whoami.entrypoints=web"
+#  traefik:
+#    image: "traefik:v3.3"
+#    container_name: "traefik"
+#    command:
+#      #- "--log.level=DEBUG"
+#      - "--api.insecure=true"
+#      - "--providers.docker=true"
+#      - "--providers.docker.exposedbydefault=false"
+#      - "--entryPoints.web.address=:80"
+#    ports:
+#      - "80:80"
+#      - "8080:8080"
+#    volumes:
+#      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+
+#  whoami:
+#    image: "traefik/whoami"
+#    container_name: "simple-service"
+#    labels:
+#      - "traefik.enable=true"
+#      - "traefik.http.routers.whoami.rule=Host(`whoami.localhost`)"
+#      - "traefik.http.routers.whoami.entrypoints=web"
 
   rabbitmq:
     image: rabbitmq:3.10.7-management
@@ -45,3 +73,4 @@ services:
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
+

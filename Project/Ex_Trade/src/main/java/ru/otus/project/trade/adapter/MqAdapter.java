@@ -2,10 +2,11 @@ package ru.otus.project.trade.adapter;
 
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import ru.otus.project.trade.domain.Order;
 import ru.otus.project.trade.domain.TradingGlass;
+
+import java.math.BigDecimal;
 
 @Component
 public class MqAdapter {
@@ -23,7 +24,8 @@ public class MqAdapter {
             try {
                 order.setTicker(orderFields[1]);
                 order.setAmount(Integer.parseInt(orderFields[2]));
-                order.setTraderCode(orderFields[3]);
+                order.setPrice(new BigDecimal(orderFields[3]));
+                order.setTraderCode(orderFields[4]);
             } catch (IndexOutOfBoundsException e){
                 /* NOP */
             }
@@ -31,31 +33,27 @@ public class MqAdapter {
         }
     }
 
-    //@RabbitListener(queues = "/queue/trade/inbound/order/buy")
     @RabbitListener(queues = "${mq.buy.queue}")
     public void handleOrderToBuy(String orderRecord) {
-        System.out.println(orderRecord);
         tradingGlass.appendBuyOrder(parseOrder(orderRecord));
     }
 
-    //@RabbitListener(queues = "/queue/trade/inbound/order/sell")
     @RabbitListener(queues = "${mq.sell.queue}")
     public void handleOrderToSell(String orderRecord) {
-        System.out.println(orderRecord);
         tradingGlass.appendSellOrder(parseOrder(orderRecord));
     }
 
-    @RabbitListener(queues = "/queue/trade/inbound/security")
+    /*
+    @RabbitListener(queues = "${mq.security.queue}")
     public void handleSecurityCreationEvent(String securityCode) {
         throw new RuntimeException("Not supported yet");
     }
 
-    @RabbitListener(queues = "/queue/trade/inbound/user")
+    @RabbitListener(queues = "${mq.user.queue}")
     public void handleSecurityRequest(String userTradingId) {
         throw new RuntimeException("Not supported yet");
     }
 
-    /*
     @RabbitListener(queues = "/queue/trade/inbound/request")
     public void receiveRequest(String message) {
         deals.add("Request: " + message);

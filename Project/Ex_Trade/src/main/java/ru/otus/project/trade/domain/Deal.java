@@ -12,11 +12,28 @@ public class Deal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String type; // BUY or SELL
     private String ticker;
     private int amount;
     private BigDecimal price;
     private String dateTime;
+    private String sellerCode;
+    private String buyerCode;
+
+    public String getBuyerCode() {
+        return buyerCode;
+    }
+
+    public void setBuyerCode(String buyerCode) {
+        this.buyerCode = buyerCode;
+    }
+
+    public String getSellerCode() {
+        return sellerCode;
+    }
+
+    public void setSellerCode(String sellerCode) {
+        this.sellerCode = sellerCode;
+    }
 
     public Long getId() {
         return id;
@@ -24,14 +41,6 @@ public class Deal {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public String getTicker() {
