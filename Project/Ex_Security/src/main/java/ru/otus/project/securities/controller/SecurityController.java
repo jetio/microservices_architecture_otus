@@ -7,6 +7,7 @@ import ru.otus.project.securities.domain.Security;
 import ru.otus.project.securities.service.SecurityService;
 
 import java.util.List;
+import java.util.StringJoiner;
 
 @RestController
 @RequestMapping("/api/v1/securities")
@@ -21,7 +22,10 @@ public class SecurityController {
     @PostMapping
     public Security createSecurity(@RequestBody Security security) {
         Security savedSecurity = securityService.save(security);
-        rabbitTemplate.convertAndSend("/queue/trade/inbound/security", savedSecurity);
+        StringJoiner stringJoiner = new StringJoiner("|");
+        stringJoiner.add(savedSecurity.getId().toString());
+        stringJoiner.add(savedSecurity.getTicker());
+        rabbitTemplate.convertAndSend("/queue/trade/inbound/security", stringJoiner.toString());
         return savedSecurity;
     }
 

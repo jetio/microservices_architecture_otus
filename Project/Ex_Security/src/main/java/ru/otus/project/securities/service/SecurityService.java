@@ -19,6 +19,7 @@ public class SecurityService {
     }
 
     public List<Security> getSecurities() {
-        throw new RuntimeException("Not supported yet");
+        return securityRepository.findAll();
     }
+
 }

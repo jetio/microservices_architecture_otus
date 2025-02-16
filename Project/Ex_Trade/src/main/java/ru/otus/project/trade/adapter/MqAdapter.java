@@ -43,25 +43,15 @@ public class MqAdapter {
         tradingGlass.appendSellOrder(parseOrder(orderRecord));
     }
 
-    /*
     @RabbitListener(queues = "${mq.security.queue}")
-    public void handleSecurityCreationEvent(String securityCode) {
-        throw new RuntimeException("Not supported yet");
+    public void handleSecurityCreationEvent(String securityRecord) {
+        System.out.println("New security consumed: " + securityRecord);
+        /* todo: logic */
     }
 
     @RabbitListener(queues = "${mq.user.queue}")
-    public void handleSecurityRequest(String userTradingId) {
-        throw new RuntimeException("Not supported yet");
+    public void handleSecurityRequest(String userRecord) {
+        System.out.println("New user consumed: " + userRecord);
+        /* todo: logic */
     }
-
-    @RabbitListener(queues = "/queue/trade/inbound/request")
-    public void receiveRequest(String message) {
-        deals.add("Request: " + message);
-    }
-
-    @RabbitListener(queues = "/queue/trade/inbound/security")
-    public void receiveSecurity(String message) {
-        deals.add("Security: " + message);
-    }
-    */
 }

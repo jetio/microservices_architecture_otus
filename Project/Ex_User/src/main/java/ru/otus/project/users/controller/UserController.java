@@ -7,6 +7,7 @@ import ru.otus.project.users.domain.User;
 import ru.otus.project.users.service.UserService;
 
 import java.util.List;
+import java.util.StringJoiner;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -21,7 +22,10 @@ public class UserController {
     @PostMapping
     public User createUser(@RequestBody User user) {
         User savedUser = userService.save(user);
-        rabbitTemplate.convertAndSend("/queue/trade/inbound/user", savedUser);
+        StringJoiner stringJoiner = new StringJoiner("|");
+        stringJoiner.add(savedUser.getId().toString());
+        stringJoiner.add(savedUser.getTraderCode());
+        rabbitTemplate.convertAndSend("/queue/trade/inbound/user", stringJoiner.toString());
         return savedUser;
     }
 

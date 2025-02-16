@@ -4,10 +4,10 @@ FROM bellsoft/liberica-openjdk-alpine-musl
 WORKDIR /app
 
 # Copy the JAR file
-COPY target/Ex_User-1.0-SNAPSHOT.jar app.jar
+COPY target/Ex_GW-1.0-SNAPSHOT.jar app.jar
 
 # Expose the port
-EXPOSE 8083
+EXPOSE 8086
 
 # Run the application
 ENTRYPOINT ["java", "-jar", "app.jar"]

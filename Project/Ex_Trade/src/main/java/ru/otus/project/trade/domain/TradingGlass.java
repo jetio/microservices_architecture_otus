@@ -53,6 +53,7 @@ public final class TradingGlass {
             for (Order buyOrder : buyOrderList){
                 if (sellOrder.equals(buyOrder)){
                     matchedOrderSet.add(sellOrder);
+                    System.out.println("Processing deal");
                     Deal deal = new Deal();
                     deal.setSellerCode(sellOrder.getTraderCode());
                     deal.setBuyerCode(buyOrder.getTraderCode());

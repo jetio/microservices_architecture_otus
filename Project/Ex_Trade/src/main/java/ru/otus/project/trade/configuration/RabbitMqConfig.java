@@ -13,6 +13,12 @@ public class RabbitMqConfig {
     @Value("${mq.sell.queue}")
     private String sellQueue;
 
+    @Value("${mq.security.queue}")
+    private String securityQueue;
+
+    @Value("${mq.user.queue}")
+    private String userQueue;
+
     @Bean
     public Queue buyQueue() {
         return new Queue(buyQueue, true); // true means durable queue
@@ -21,5 +27,15 @@ public class RabbitMqConfig {
     @Bean
     public Queue sellQueue() {
         return new Queue(sellQueue, true); // true means durable queue
+    }
+
+    @Bean
+    public Queue securityQueue() {
+        return new Queue(securityQueue, true); // true means durable queue
+    }
+
+    @Bean
+    public Queue userQueue() {
+        return new Queue(userQueue, true); // true means durable queue
     }
 }
