@@ -1,0 +1,606 @@
+{
+	"info": {
+		"_postman_id": "62de101d-87f1-436e-a8f4-60f3e45eef91",
+		"name": "OTUS MSA ARCH Project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2021917"
+	},
+	"item": [
+		{
+			"name": "MakeSellOrder",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"ticker\": \"PLSGLD\",\n  \"amount\": 100,\n  \"price\": 25,\n  \"traderCode\": \"00123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:8081/api/v1/orders/sell",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"v1",
+						"orders",
+						"sell"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MakeSellOrder (through proxy)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "42",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"ticker\": \"PLSGLD\",\n  \"amount\": 100,\n  \"price\": 25,\n  \"traderCode\": \"00123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:8080/api/v1/orders/sell",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"orders",
+						"sell"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MakeBuyOrder",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"ticker\": \"PLSGLD\",\n  \"amount\": 100,\n  \"price\": 25,\n  \"traderCode\": \"00234\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:8081/api/v1/orders/buy",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"v1",
+						"orders",
+						"buy"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MakeBuyOrder (through proxy)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "42",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"ticker\": \"PLSGLD\",\n  \"amount\": 100,\n  \"price\": 25,\n  \"traderCode\": \"00234\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:8080/api/v1/orders/buy",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"orders",
+						"buy"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all orders",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}:8081/api/v1/orders",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"v1",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all orders (through proxy)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "42",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}:8080/api/v1/orders",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all securities (through proxy)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "42",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}:8080/api/v1/securities",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"securities"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all securities",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}:8082/api/v1/securities",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "8082",
+					"path": [
+						"api",
+						"v1",
+						"securities"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all deals",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}:8084/api/v1/deals",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "8084",
+					"path": [
+						"api",
+						"v1",
+						"deals"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all deals (through proxy)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "42",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}:8080/api/v1/deals",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"deals"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Auth",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "42",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}:8085/auth",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "8085",
+					"path": [
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get trading glass",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}:8084/api/v1/trading",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "8084",
+					"path": [
+						"api",
+						"v1",
+						"trading"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get trading glass (through proxy)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "42",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}:8080/api/v1/trading",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"trading"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Start trading",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}:8084/api/v1/trading/start",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "8084",
+					"path": [
+						"api",
+						"v1",
+						"trading",
+						"start"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Start trading (through api-gw)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}:8086/api/v1/trading/start",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "8086",
+					"path": [
+						"api",
+						"v1",
+						"trading",
+						"start"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Finish trading",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}:8084/api/v1/trading/finish",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "8084",
+					"path": [
+						"api",
+						"v1",
+						"trading",
+						"finish"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Finish trading (through api-gw)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}:8086/api/v1/trading/finish",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "8086",
+					"path": [
+						"api",
+						"v1",
+						"trading",
+						"finish"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create security",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"ticker\": \"PLSGLD\",\n  \"name\": \"Полюс золота\",\n  \"description\": \"Полюс золота\",\n  \"price\": 10,\n  \"amount\": 100000\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:8082/api/v1/securities",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "8082",
+					"path": [
+						"api",
+						"v1",
+						"securities"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create security (through api-gw)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"ticker\": \"PLSGLD\",\n  \"name\": \"Полюс золота\",\n  \"description\": \"Полюс золота\",\n  \"price\": 10,\n  \"amount\": 100000\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:8086/api/v1/securities",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "8086",
+					"path": [
+						"api",
+						"v1",
+						"securities"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"firstName\": \"Николай\",\n  \"lastName\": \"Барский\",\n  \"birthdate\": \"1981-02-16\",\n  \"traderCode\": \"00123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:8083/api/v1/users",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "8083",
+					"path": [
+						"api",
+						"v1",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create user (through api-gw)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"firstName\": \"Николай\",\n  \"lastName\": \"Барский\",\n  \"birthdate\": \"1981-02-16\",\n  \"traderCode\": \"00123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:8086/api/v1/users",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "8086",
+					"path": [
+						"api",
+						"v1",
+						"users"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "localhost",
+			"type": "string"
+		}
+	]
+}

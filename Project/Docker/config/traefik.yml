@@ -1,0 +1,13 @@
+entryPoints:
+  web:
+    address: ":8080"
+
+providers:
+  file:
+    filename: /etc/traefik/dynamic_conf.yml
+
+api:
+  dashboard: true
+
+log:
+  level: DEBUG

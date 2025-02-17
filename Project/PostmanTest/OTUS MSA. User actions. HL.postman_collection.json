@@ -1,0 +1,209 @@
+{
+	"info": {
+		"_postman_id": "c0635583-cc42-4436-8eeb-1aa6fcbf28a9",
+		"name": "OTUS MSA. User actions. HL",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2021917"
+	},
+	"item": [
+		{
+			"name": "MakeBuyOrder (through proxy)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "42",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"ticker\": \"PLSGLD\",\n  \"amount\": 100,\n  \"price\": 25,\n  \"traderCode\": \"00234\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:8080/api/v1/orders/buy",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"orders",
+						"buy"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MakeSellOrder (through proxy)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "42",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"ticker\": \"PLSGLD\",\n  \"amount\": 100,\n  \"price\": 25,\n  \"traderCode\": \"00123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/orders/sell",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"orders",
+						"sell"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all securities (through proxy)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "42",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}:8080/api/v1/securities",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"securities"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all deals (through proxy)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "42",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}:8080/api/v1/deals",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"deals"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all orders (through proxy)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "42",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}:8080/api/v1/orders",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "localhost",
+			"type": "string"
+		}
+	]
+}

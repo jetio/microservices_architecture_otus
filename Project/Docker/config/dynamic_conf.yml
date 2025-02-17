@@ -1,0 +1,47 @@
+http:
+  routers:
+    orders:
+      rule: "PathPrefix(`/api/v1/orders`)"
+      service: ordersapp
+      middlewares:
+        - auth
+
+    deals:
+      rule: "PathPrefix(`/api/v1/deals`)"
+      service: tradeapp
+      middlewares:
+        - auth
+
+    trading:
+      rule: "PathPrefix(`/api/v1/trading`)"
+      service: tradeapp
+      middlewares:
+        - auth
+
+    security:
+      rule: "PathPrefix(`/api/v1/securities`)"
+      service: securityapp
+      middlewares:
+        - auth
+
+  services:
+    ordersapp:
+      loadBalancer:
+        servers:
+          - url: "http://host.docker.internal:8081"
+
+    securityapp:
+      loadBalancer:
+        servers:
+          - url: "http://host.docker.internal:8082"
+
+    tradeapp:
+      loadBalancer:
+        servers:
+          - url: "http://host.docker.internal:8084"
+
+  middlewares:
+    auth:
+      forwardAuth:
+        address: "http://host.docker.internal:8085/auth"
+        trustForwardHeader: true
